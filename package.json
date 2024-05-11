@@ -1,0 +1,22 @@
+{
+  "name": "css-classname-extractor",
+  "version": "1.0.1",
+  "description": "extract classname from css file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvindsuriyaa/css-classnames-extractor.git"
+  },
+  "author": "MetalFroster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arvindsuriyaa/css-classnames-extractor/issues"
+  },
+  "homepage": "https://github.com/arvindsuriyaa/css-classnames-extractor#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
