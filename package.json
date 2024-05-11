@@ -1,9 +1,11 @@
 {
   "name": "css-classname-extractor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "extract classname from css file",
   "main": "index.js",
-  "keywords": ["css"],
+  "keywords": [
+    "css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
