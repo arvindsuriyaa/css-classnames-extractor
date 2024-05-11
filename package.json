@@ -1,6 +1,6 @@
 {
   "name": "css-classname-extractor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "extract classname from css file",
   "main": "index.js",
   "keywords": [
