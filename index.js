@@ -14,9 +14,25 @@ function handler(cssPath) {
   let data = imageBuffer
     .toString()
     .replace(/(\r\n|\n|\r)/gm, "")
-    .match(/([\&!#A-z '\][calc\(^*)\][_A-Za-z0-9\/-|-\\[0-9+\%\]]+{)/gm)
+    .match(
+      /([\&!#A-z '\][calc\(^*)\][_A-Za-z0-9\/-|-\\[.,\n.0-9+\%\]" ~]+ {)/gm
+    )
     .map((item) => {
       let classes = item.replace(/[\\{]/g, "").trim();
+
+      //Condition to handle "." before className
+      if (classes.split(" ").length > 1) {
+        let splitStr = classes.split(" ");
+        let data = splitStr.map((str) => {
+          if (str.charAt(0) === ".") {
+            return str.substring(1);
+          }
+          return str;
+        });
+        classes = data.join(" ");
+      } else {
+        classes = classes.substring(1);
+      }
       //
       let regexTest = new RegExp("::");
 
@@ -32,7 +48,9 @@ function handler(cssPath) {
         regexTest = new RegExp("::after");
         if (regexTest.test(classes)) {
           return generateParsedString(
-            classes.substring(0, classes.lastIndexOf("::after"))
+            classes
+              .substring(0, classes.lastIndexOf("::after"))
+              .replace(/["']/g, "'")
           );
         }
 
@@ -42,10 +60,24 @@ function handler(cssPath) {
             classes.substring(0, classes.lastIndexOf("::-webkit-scrollbar"))
           );
         }
+
+        regexTest = new RegExp("::first-letter");
+        if (regexTest.test(classes)) {
+          return generateParsedString(
+            classes.substring(0, classes.lastIndexOf("::first-letter"))
+          );
+        }
       }
       regexTest = new RegExp(":hover");
       if (regexTest.test(classes)) {
-        return classes.substring(0, classes.lastIndexOf(":hover"));
+        if (classes.split(" ").length > 1) {
+          return classes;
+        }
+        let subStringResult = classes.substring(
+          0,
+          classes.lastIndexOf(":hover")
+        );
+        return subStringResult;
       }
       regexTest = new RegExp(">[*]:");
       if (regexTest.test(classes)) {
